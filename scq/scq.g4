@@ -17,33 +17,33 @@ program
 	[
 	using Procedures = std::unordered_set<std::string>,
 	using ProcedureDefinitions = std::map<std::string, scqParser::ProcDefinitionContext *>,
-	Procedures procs = Procedures(),
-	ProcedureDefinitions procDefs = ProcedureDefinitions()
+	Procedures * procs = new Procedures(),
+	ProcedureDefinitions * procDefs = new ProcedureDefinitions()
 	]
-	: procDeclaration[$procs]* procDefinition[$procs, $procDefs]* block[$procDefs]
+	: procDeclaration[$procs]* procDefinition[$procs, $procDefs]* block[$procDefs, {}]
 	;
 	catch[utils::ScException const & e] {SC_LOG_ERROR("Parse error occurred: " + std::string(e.Message()));}
 
 procDeclaration
-	[ProgramContext::Procedures procs]
-	: PROCEDURE_TYPE EDGE_OP n1=NAME
+	[ProgramContext::Procedures * procs]
+	: PROCEDURE_TYPE EDGE_OP NAME
 	{
-	if ($procs.find($n1.text) != $procs.end()) {
-	  SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $n1.text + " is declared.");
+	if ($procs->find($NAME.text) != $procs->end()) {
+	  SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $NAME.text + " is declared.");
 	}
 	else {
-	  $procs.insert($n1.text);
-	  SC_LOG_DEBUG("Declare " + $n1.text + " procedure");
+	  $procs->insert($NAME.text);
+	  SC_LOG_DEBUG("Declare " + $NAME.text + " procedure");
     }
 	}
-	(COMMA n2=NAME
+	(COMMA NAME
 	{
-    if ($procs.find($n2.text) != $procs.end()) {
-      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $n2.text + " is declared.");
+    if ($procs->find($NAME.text) != $procs->end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $NAME.text + " is declared.");
     }
     else {
-      $procs.insert($n2.text);
-      SC_LOG_DEBUG("Declare " + $n2.text + " procedure");
+      $procs->insert($NAME.text);
+      SC_LOG_DEBUG("Declare " + $NAME.text + " procedure");
     }
     }
 	)*
@@ -51,66 +51,92 @@ procDeclaration
 	;
 
 procDefinition
-	[ProgramContext::Procedures procs, ProgramContext::ProcedureDefinitions procDefs]
+	[ProgramContext::Procedures * procs, ProgramContext::ProcedureDefinitions * procDefs]
+	locals
+    [
+    using ProcedureParams = std::unordered_set<std::string>,
+    ProcedureParams * params = new ProcedureParams()
+    ]
  	: (PROCEDURE_TYPE EDGE_OP)? NAME
  	{
-    if ($procs.find($NAME.text) != $procs.end()) {
-      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $NAME.text + " is declared.");
+    if ($procs->find($NAME.text) == $procs->end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $NAME.text + " isn't declared.");
     }
     else {
-      $procDefs.insert({ $NAME.text, $ctx });
+      $procDefs->insert({ $NAME.text, $ctx });
       SC_LOG_DEBUG("Define " + $NAME.text + " procedure");
     }
     }
- 	ASSIGN_OP procParams COMMA block[$procDefs] SEMICOLON
+ 	ASSIGN_OP procParams[$params] COMMA block[$procDefs, $params]
+ 	SEMICOLON
  	;
 
-procParams : LEFT_CURL_BRACKET (OBJECT_TYPE EDGE_OP NAME)* (COMMA (OBJECT_TYPE EDGE_OP)* NAME)* RIGHT_CURL_BRACKET ;
+procParams[ProcDefinitionContext::ProcedureParams * params]
+	: LEFT_CURL_BRACKET (OBJECT_TYPE EDGE_OP NAME
+	{
+	if ($params->find($NAME.text) != $params->end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The param " + $NAME.text + " is repeated.");
+    }
+    else {
+      $params->insert($NAME.text);
+      SC_LOG_DEBUG("Define " + $NAME.text + " param");
+    }
+	}
+	)* (COMMA (OBJECT_TYPE EDGE_OP)* NAME
+	{
+    if ($params->find($NAME.text) != $params->end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The param " + $NAME.text + " is repeated.");
+    }
+    else {
+      $params->insert($NAME.text);
+      SC_LOG_DEBUG("Define " + $NAME.text + " param");
+    }
+    }
+	)* RIGHT_CURL_BRACKET
+	;
 
 block
-	[ProgramContext::ProcedureDefinitions procDefs]
+	[ProgramContext::ProcedureDefinitions * procDefs, ProcDefinitionContext::ProcedureParams * params]
 	locals
     [
     using Objects = std::unordered_set<std::string>,
     using ObjectsDefinitions = std::vector<std::pair<std::string, scqParser::ObjectDefinitionContext *>>,
-    Objects objects = Objects(),
-    ObjectsDefinitions objDefs = ObjectsDefinitions()
+    Objects * objects = new Objects(),
+    ObjectsDefinitions * objDefs = new ObjectsDefinitions()
     ]
-    : (objectDeclaration[$objects] | objectDefinition[$objects, $objDefs, $procDefs] | operation[$objects, $objDefs, $procDefs])*
+    @init
+    {
+    $objects->insert($params->begin(), $params->end());
+    }
+    : (objectDeclaration[$objects, $procDefs] | objectDefinition[$objects, $objDefs, $procDefs] | operation[$objects, $objDefs, $procDefs])*
     ;
     catch[utils::ScException & e] {SC_LOG_ERROR("Parse error occured: " + std::string(e.Message()));}
 
 objectDeclaration
-	[BlockContext::Objects objects]
-	: (OBJECT_TYPE | (NAME
+	[BlockContext::Objects * objects, ProgramContext::ProcedureDefinitions * procDefs]
+	: OBJECT_TYPE (COMMA (OBJECT_TYPE | (NAME
 	{
-    if ($objects.find($NAME.text) == $objects.end()) {
-      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " isn't declared.");
-    }
-    }
-    )) (COMMA (OBJECT_TYPE | (NAME
-	{
-    if ($objects.find($NAME.text) == $objects.end()) {
+    if ($objects->find($NAME.text) == $objects->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " isn't declared.");
     }
     }
 	)))* EDGE_OP NAME
 	{
-    if ($objects.find($NAME.text) != $objects.end()) {
+    if ($objects->find($NAME.text) != $objects->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " is declared.");
     }
     else {
-      $objects.insert($NAME.text);
+      $objects->insert($NAME.text);
       SC_LOG_DEBUG("Declare " + $NAME.text + " object");
     }
     }
     (COMMA NAME
     {
-    if ($objects.find($NAME.text) != $objects.end()) {
+    if ($objects->find($NAME.text) != $objects->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " is declared.");
     }
     else {
-      $objects.insert($NAME.text);
+      $objects->insert($NAME.text);
       SC_LOG_DEBUG("Declare " + $NAME.text + " object");
     }
     }
@@ -119,36 +145,36 @@ objectDeclaration
 	;
 
 objectDefinition
-	[BlockContext::Objects objects, BlockContext::ObjectsDefinitions objDefs, ProgramContext::ProcedureDefinitions procDefs]
+	[BlockContext::Objects * objects, BlockContext::ObjectsDefinitions * objDefs, ProgramContext::ProcedureDefinitions * procDefs]
 	: (((OBJECT_TYPE | (n1=NAME
 	{
-	if ($objects.find($n1.text) == $objects.end()) {
+	if ($objects->find($n1.text) == $objects->end() && $procDefs->find($n1.text) == $procDefs->end()) {
 	  SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $n1.text + " isn't declared.");
 	}
 	else {
       SC_LOG_DEBUG("Define " + $n1.text + " object");
-	  objDefs.push_back({ $n1.text, $ctx });
+	  objDefs->push_back({ $n1.text, $ctx });
     }
     }
 	)) (COMMA (OBJECT_TYPE | (n2=NAME
 	{
-    if ($objects.find($n2.text) == $objects.end()) {
+    if ($objects->find($n2.text) == $objects->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $n2.text + " isn't declared.");
     }
     else {
       SC_LOG_DEBUG("Define " + $n2.text + " object");
-      objDefs.push_back({ $n2.text, $ctx });
+      objDefs->push_back({ $n2.text, $ctx });
     }
    	}
 	)))* EDGE_OP compositeOperand[$objects])
 	| ((n3=NAME
 	{
-    if ($objects.find($n3.text) == $objects.end()) {
+    if ($objects->find($n3.text) == $objects->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $n3.text + " isn't declared.");
     }
     else {
       SC_LOG_DEBUG("Define " + $n3.text + " object");
-      objDefs.push_back({ $n3.text, $ctx });
+      objDefs->push_back({ $n3.text, $ctx });
     }
     }
 	ASSIGN_OP)? compositeOperand[$objects]
@@ -157,10 +183,10 @@ objectDefinition
 	;
 
 operation
-	[BlockContext::Objects objects, BlockContext::ObjectsDefinitions objDefs, ProgramContext::ProcedureDefinitions procDefs]
+	[BlockContext::Objects * objects, BlockContext::ObjectsDefinitions * objDefs, ProgramContext::ProcedureDefinitions * procDefs]
  	: (SET_OPERATION | (NAME
  	{
- 	if ($procDefs.find($NAME.text) == $procDefs.end()) {
+ 	if ($procDefs->find($NAME.text) == $procDefs->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $NAME.text + " isn't declared.");
     }
 	}
@@ -169,11 +195,11 @@ operation
  	{
     if ($NAME != nullptr) {
       SC_LOG_DEBUG("Define " + $NAME.text + " operation");
-      objDefs.push_back({ $NAME.text, dynamic_cast<ObjectDefinitionContext *>($ctx->parent) });
+      objDefs->push_back({ $NAME.text, dynamic_cast<ObjectDefinitionContext *>($ctx->parent) });
     }
     else {
       SC_LOG_DEBUG("Define " + $SET_OPERATION.text + " operation");
-      objDefs.push_back({ $SET_OPERATION.text, dynamic_cast<ObjectDefinitionContext *>($ctx->parent) });
+      objDefs->push_back({ $SET_OPERATION.text, dynamic_cast<ObjectDefinitionContext *>($ctx->parent) });
     }
     }
  	SEMICOLON
@@ -182,17 +208,19 @@ operation
 	(COMMA (operation[$objects, $objDefs, $procDefs] | objectDefinition[$objects, $objDefs, $procDefs]))*
 	{
 	  SC_LOG_DEBUG("Define " + $IF_OP.text + " operation");
-      objDefs.push_back({ $IF_OP.text, dynamic_cast<ObjectDefinitionContext *>($ctx->parent) });
+      objDefs->push_back({ $IF_OP.text, dynamic_cast<ObjectDefinitionContext *>($ctx->parent) });
 	}
-	SEMICOLON ;
+	SEMICOLON 
+	;
 
-compositeOperand[BlockContext::Objects objects]
- 	: operand[$objects] (COMMA operand[$objects])* ;
+compositeOperand[BlockContext::Objects * objects]
+ 	: operand[$objects] (COMMA operand[$objects])* 
+ 	;
 
-operationOperand[BlockContext::Objects objects]
+operationOperand[BlockContext::Objects * objects]
  	: NAME
  	{
-    if (objects.find($NAME.text) == objects.end()) {
+    if (objects->find($NAME.text) == objects->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " isn't declared.");
     }
     }
@@ -201,10 +229,10 @@ operationOperand[BlockContext::Objects objects]
     | templateCommand
     ;
 
-operand[BlockContext::Objects objects]
+operand[BlockContext::Objects * objects]
  	: NAME
  	{
-	if (objects.find($NAME.text) == objects.end()) {
+	if (objects->find($NAME.text) == objects->end()) {
 	  SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " isn't declared.");
 	}
 	}
@@ -214,23 +242,29 @@ operand[BlockContext::Objects objects]
 	| templateCommand
 	;
 
-nonOrientedSet[std::unordered_set<std::string> objects]
- 	: LEFT_FIGURE_BRACKET compositeOperand[$objects]* (COMMA compositeOperand[$objects])* RIGHT_FIGURE_BRACKET ;
+nonOrientedSet[BlockContext::Objects * objects]
+ 	: LEFT_FIGURE_BRACKET compositeOperand[$objects]* (COMMA compositeOperand[$objects])* RIGHT_FIGURE_BRACKET 
+ 	;
 
-orientedSet[std::unordered_set<std::string> objects]
-	: LEFT_CURL_BRACKET compositeOperand[$objects]* (COMMA compositeOperand[$objects])* RIGHT_CURL_BRACKET ;
+orientedSet[BlockContext::Objects * objects]
+	: LEFT_CURL_BRACKET compositeOperand[$objects]* (COMMA compositeOperand[$objects])* RIGHT_CURL_BRACKET 
+	;
 
 templateCommand
-	: templateExpression (COMMA templateExpression)* (commandTemplateResult)? ;
+	: templateExpression (COMMA templateExpression)* (commandTemplateResult)? 
+	;
 
 templateExpression
-	: LEFT_SQUARE_BRACKET commandTemplate RIGHT_SQUARE_BRACKET ;
+	: LEFT_SQUARE_BRACKET commandTemplate RIGHT_SQUARE_BRACKET 
+	;
 
 commandTemplate
-	: templateParam (COMMA templateParam)* EDGE_OP templateParam (COMMA templateParam)* ;
+	: templateParam (COMMA templateParam)* EDGE_OP templateParam (COMMA templateParam)* 
+	;
 
 commandTemplateResult
-	: AS_OP LEFT_SQUARE_BRACKET templateParam (COMMA templateParam)* RIGHT_SQUARE_BRACKET ;
+	: AS_OP LEFT_SQUARE_BRACKET templateParam (COMMA templateParam)* RIGHT_SQUARE_BRACKET 
+	;
 
 templateParam
 	: SET_OPERATION

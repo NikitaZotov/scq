@@ -12,7 +12,7 @@ sc_bool scqCompiler::compile(sc_memory_params const & params)
   {
     ScMemory::Initialize(params);
 
-    std::ifstream file("/home/nikita/CLionProjects/ostis-web-platfrom-compiler/ostis-web-platform/sc-machine/scq/examples/test_1.scq", std::ios_base::in);
+    std::ifstream file("/home/nikita/CLionProjects/ostis-web-platform/sc-machine/scq/examples/test_1.scq", std::ios_base::in);
     antlr4::ANTLRInputStream input(file);
     scqLexer lexer(&input);
 
@@ -22,7 +22,7 @@ sc_bool scqCompiler::compile(sc_memory_params const & params)
 
     file.close();
 
-    ScMemory::Shutdown(false);
+    ScMemory::Shutdown(true);
   }
   catch (utils::ScException & e)
   {
