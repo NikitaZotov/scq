@@ -5,54 +5,235 @@ options
   language = Cpp;
 }
 
-program : procDeclaration+ procDefinition+ ;
+@header
+{
+#include "sc-memory/sc_memory.hpp"
+#include "sc-memory/sc_addr.hpp"
+#include "sc-memory/sc_keynodes.hpp"
+}
 
-procDeclaration : PROCEDURE_TYPE EDGE_OP NAME (COMMA NAME)* SEMICOLON ;
+program
+	locals
+	[
+	using Procedures = std::unordered_set<std::string>,
+	using ProcedureDefinitions = std::map<std::string, scqParser::ProcDefinitionContext *>,
+	Procedures procs = Procedures(),
+	ProcedureDefinitions procDefs = ProcedureDefinitions()
+	]
+	: procDeclaration[$procs]* procDefinition[$procs, $procDefs]* block[$procDefs]
+	;
+	catch[utils::ScException const & e] {SC_LOG_ERROR("Parse error occurred: " + std::string(e.Message()));}
 
-procDefinition : (PROCEDURE_TYPE EDGE_OP)? NAME ASSIGN_OP procParams COMMA procBody SEMICOLON ;
+procDeclaration
+	[ProgramContext::Procedures procs]
+	: PROCEDURE_TYPE EDGE_OP n1=NAME
+	{
+	if ($procs.find($n1.text) != $procs.end()) {
+	  SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $n1.text + " is declared.");
+	}
+	else {
+	  $procs.insert($n1.text);
+	  SC_LOG_DEBUG("Declare " + $n1.text + " procedure");
+    }
+	}
+	(COMMA n2=NAME
+	{
+    if ($procs.find($n2.text) != $procs.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $n2.text + " is declared.");
+    }
+    else {
+      $procs.insert($n2.text);
+      SC_LOG_DEBUG("Declare " + $n2.text + " procedure");
+    }
+    }
+	)*
+	SEMICOLON
+	;
+
+procDefinition
+	[ProgramContext::Procedures procs, ProgramContext::ProcedureDefinitions procDefs]
+ 	: (PROCEDURE_TYPE EDGE_OP)? NAME
+ 	{
+    if ($procs.find($NAME.text) != $procs.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $NAME.text + " is declared.");
+    }
+    else {
+      $procDefs.insert({ $NAME.text, $ctx });
+      SC_LOG_DEBUG("Define " + $NAME.text + " procedure");
+    }
+    }
+ 	ASSIGN_OP procParams COMMA block[$procDefs] SEMICOLON
+ 	;
 
 procParams : LEFT_CURL_BRACKET (OBJECT_TYPE EDGE_OP NAME)* (COMMA (OBJECT_TYPE EDGE_OP)* NAME)* RIGHT_CURL_BRACKET ;
 
-procBody : (objectCreation | command)* ;
+block
+	[ProgramContext::ProcedureDefinitions procDefs]
+	locals
+    [
+    using Objects = std::unordered_set<std::string>,
+    using ObjectsDefinitions = std::vector<std::pair<std::string, scqParser::ObjectDefinitionContext *>>,
+    Objects objects = Objects(),
+    ObjectsDefinitions objDefs = ObjectsDefinitions()
+    ]
+    : (objectDeclaration[$objects] | objectDefinition[$objects, $objDefs, $procDefs] | operation[$objects, $objDefs, $procDefs])*
+    ;
+    catch[utils::ScException & e] {SC_LOG_ERROR("Parse error occured: " + std::string(e.Message()));}
 
-objectCreation : objectCreationOperand (COMMA objectCreationOperand)* (EDGE_OP | ASSIGN_OP)
-				(compositeOperand (ASSIGN_OP compositeOperand)* | command) SEMICOLON ;
-
-objectCreationOperand : NAME
-	| OBJECT_TYPE
+objectDeclaration
+	[BlockContext::Objects objects]
+	: (OBJECT_TYPE | (NAME
+	{
+    if ($objects.find($NAME.text) == $objects.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " isn't declared.");
+    }
+    }
+    )) (COMMA (OBJECT_TYPE | (NAME
+	{
+    if ($objects.find($NAME.text) == $objects.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " isn't declared.");
+    }
+    }
+	)))* EDGE_OP NAME
+	{
+    if ($objects.find($NAME.text) != $objects.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " is declared.");
+    }
+    else {
+      $objects.insert($NAME.text);
+      SC_LOG_DEBUG("Declare " + $NAME.text + " object");
+    }
+    }
+    (COMMA NAME
+    {
+    if ($objects.find($NAME.text) != $objects.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " is declared.");
+    }
+    else {
+      $objects.insert($NAME.text);
+      SC_LOG_DEBUG("Declare " + $NAME.text + " object");
+    }
+    }
+    )*
+	SEMICOLON
 	;
 
-command : COMMAND EDGE_OP commandCompositeOperand (COMMA commandCompositeOperand)* SEMICOLON
-	| IF_OP EDGE_OP command COMMA (command | objectCreation) (COMMA (command | objectCreation))* SEMICOLON ;
+objectDefinition
+	[BlockContext::Objects objects, BlockContext::ObjectsDefinitions objDefs, ProgramContext::ProcedureDefinitions procDefs]
+	: (((OBJECT_TYPE | (n1=NAME
+	{
+	if ($objects.find($n1.text) == $objects.end()) {
+	  SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $n1.text + " isn't declared.");
+	}
+	else {
+      SC_LOG_DEBUG("Define " + $n1.text + " object");
+	  objDefs.push_back({ $n1.text, $ctx });
+    }
+    }
+	)) (COMMA (OBJECT_TYPE | (n2=NAME
+	{
+    if ($objects.find($n2.text) == $objects.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $n2.text + " isn't declared.");
+    }
+    else {
+      SC_LOG_DEBUG("Define " + $n2.text + " object");
+      objDefs.push_back({ $n2.text, $ctx });
+    }
+   	}
+	)))* EDGE_OP compositeOperand[$objects])
+	| ((n3=NAME
+	{
+    if ($objects.find($n3.text) == $objects.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $n3.text + " isn't declared.");
+    }
+    else {
+      SC_LOG_DEBUG("Define " + $n3.text + " object");
+      objDefs.push_back({ $n3.text, $ctx });
+    }
+    }
+	ASSIGN_OP)? compositeOperand[$objects]
+	| operation[$objects, $objDefs, $procDefs]))
+	SEMICOLON
+	;
 
-compositeOperand : operand (COMMA operand)* ;
+operation
+	[BlockContext::Objects objects, BlockContext::ObjectsDefinitions objDefs, ProgramContext::ProcedureDefinitions procDefs]
+ 	: (SET_OPERATION | (NAME
+ 	{
+ 	if ($procDefs.find($NAME.text) == $procDefs.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure " + $NAME.text + " isn't declared.");
+    }
+	}
+ 	)) EDGE_OP operationOperand[$objects]
+ 	(COMMA operationOperand[$objects])*
+ 	{
+    if ($NAME != nullptr) {
+      SC_LOG_DEBUG("Define " + $NAME.text + " operation");
+      objDefs.push_back({ $NAME.text, dynamic_cast<ObjectDefinitionContext *>($ctx->parent) });
+    }
+    else {
+      SC_LOG_DEBUG("Define " + $SET_OPERATION.text + " operation");
+      objDefs.push_back({ $SET_OPERATION.text, dynamic_cast<ObjectDefinitionContext *>($ctx->parent) });
+    }
+    }
+ 	SEMICOLON
+	| IF_OP EDGE_OP operation[$objects, $objDefs, $procDefs]
+	COMMA (operation[$objects, $objDefs, $procDefs] | objectDefinition[$objects, $objDefs, $procDefs])
+	(COMMA (operation[$objects, $objDefs, $procDefs] | objectDefinition[$objects, $objDefs, $procDefs]))*
+	{
+	  SC_LOG_DEBUG("Define " + $IF_OP.text + " operation");
+      objDefs.push_back({ $IF_OP.text, dynamic_cast<ObjectDefinitionContext *>($ctx->parent) });
+	}
+	SEMICOLON ;
 
-commandCompositeOperand : NAME
+compositeOperand[BlockContext::Objects objects]
+ 	: operand[$objects] (COMMA operand[$objects])* ;
+
+operationOperand[BlockContext::Objects objects]
+ 	: NAME
+ 	{
+    if (objects.find($NAME.text) == objects.end()) {
+      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " isn't declared.");
+    }
+    }
 	| STRING
-    | orientedSet
+    | orientedSet[$objects]
     | templateCommand
     ;
 
-operand : NAME
+operand[BlockContext::Objects objects]
+ 	: NAME
+ 	{
+	if (objects.find($NAME.text) == objects.end()) {
+	  SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " isn't declared.");
+	}
+	}
 	| STRING
-	| orientedSet
-	| nonOrientedSet
+	| orientedSet[$objects]
+	| nonOrientedSet[$objects]
 	| templateCommand
 	;
 
-nonOrientedSet : LEFT_FIGURE_BRACKET compositeOperand* (COMMA compositeOperand)* RIGHT_FIGURE_BRACKET ;
+nonOrientedSet[std::unordered_set<std::string> objects]
+ 	: LEFT_FIGURE_BRACKET compositeOperand[$objects]* (COMMA compositeOperand[$objects])* RIGHT_FIGURE_BRACKET ;
 
-orientedSet : LEFT_CURL_BRACKET compositeOperand* (COMMA compositeOperand)* RIGHT_CURL_BRACKET ;
+orientedSet[std::unordered_set<std::string> objects]
+	: LEFT_CURL_BRACKET compositeOperand[$objects]* (COMMA compositeOperand[$objects])* RIGHT_CURL_BRACKET ;
 
-templateCommand : templateExpression (COMMA templateExpression)* (commandTemplateResult)? ;
+templateCommand
+	: templateExpression (COMMA templateExpression)* (commandTemplateResult)? ;
 
-templateExpression : LEFT_SQUARE_BRACKET commandTemplate RIGHT_SQUARE_BRACKET ;
+templateExpression
+	: LEFT_SQUARE_BRACKET commandTemplate RIGHT_SQUARE_BRACKET ;
 
-commandTemplate : templateParam (COMMA templateParam)* EDGE_OP templateParam (COMMA templateParam)* ;
+commandTemplate
+	: templateParam (COMMA templateParam)* EDGE_OP templateParam (COMMA templateParam)* ;
 
-commandTemplateResult : AS_OP LEFT_SQUARE_BRACKET templateParam (COMMA templateParam)* RIGHT_SQUARE_BRACKET ;
+commandTemplateResult
+	: AS_OP LEFT_SQUARE_BRACKET templateParam (COMMA templateParam)* RIGHT_SQUARE_BRACKET ;
 
-templateParam : COMMAND
+templateParam
+	: SET_OPERATION
 	| OBJECT_TYPE
 	| NAME
 	| (LEFT_TRIANGLE_BRACKET NAME RIGHT_TRIANGLE_BRACKET)
@@ -75,7 +256,8 @@ RIGHT_CURL_BRACKET : ')' ;
 COMMA : ',' ;
 SEMICOLON : ';' ;
 
-COMMAND : 'intersect'
+SET_OPERATION
+	: 'intersect'
 	| 'complement'
 	| 'unite'
 	| 'remove'
@@ -85,21 +267,34 @@ COMMAND : 'intersect'
 	| 'return'
 	;
 
-PROCEDURE_TYPE : 'procedure' ;
+PROCEDURE_TYPE
+	: 'procedure'
+	;
+
 OBJECT_TYPE : 'set'
 	| 'terminal'
 	| 'tuple'
 	;
 
-STRING : '\'' NAME '\'' ;
+STRING
+	: '\'' NAME '\''
+	;
 
-NAME : (LETTER | DIGIT)+ ;
+NAME
+	: (LETTER | DIGIT)+
+	;
 
-LETTER : [a-zA-Z_] ;
-DIGIT : [0-9] ;
+LETTER
+	: [a-zA-Z_]
+	;
+DIGIT
+	: [0-9]
+	;
 
-WS : [ \t\n]+ -> skip ;
+WS
+	: [ \t\n]+ -> skip
+	;
 
 SL_COMMENT
-    :   '//' .*? '\n' -> skip
+    : '//' .*? '\n' -> skip
     ;

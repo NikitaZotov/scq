@@ -1,10 +1,5 @@
 
-#include "sc-memory/sc_memory.hpp"
-#include "sc-memory/sc_addr.hpp"
-#include "sc-memory/sc_keynodes.hpp"
-
-
-// Generated from /home/nikita/CLionProjects/ostis-web-platform/sc-machine/scq/scq/scq.g4 by ANTLR 4.9.2
+// Generated from /home/nikita/CLionProjects/sc-machine/scq/scq/scq.g4 by ANTLR 4.9.2
 
 #pragma once
 
@@ -33,8 +28,8 @@ public:
   virtual void enterProcParams(scqParser::ProcParamsContext * /*ctx*/) override { }
   virtual void exitProcParams(scqParser::ProcParamsContext * /*ctx*/) override { }
 
-  virtual void enterBlock(scqParser::BlockContext * /*ctx*/) override { }
-  virtual void exitBlock(scqParser::BlockContext * /*ctx*/) override { }
+  virtual void enterProcBody(scqParser::BlockContext * /*ctx*/) override { }
+  virtual void exitProcBody(scqParser::BlockContext * /*ctx*/) override { }
 
   virtual void enterObjectDeclaration(scqParser::ObjectDeclarationContext * /*ctx*/) override { }
   virtual void exitObjectDeclaration(scqParser::ObjectDeclarationContext * /*ctx*/) override { }

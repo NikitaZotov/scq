@@ -1,37 +1,66 @@
-#include "antlr4-runtime.h"
-#include "scqLexer.h"
-#include "scqParser.h"
+#include <boost/program_options.hpp>
 
-using namespace scq;
+#include <iostream>
 
-int main(int argc, const char * args[])
+#include <sc-memory/sc_memory.hpp>
+#include <sc-memory/utils/sc_signal_handler.hpp>
+
+#include "scq/scqCompiler.hpp"
+
+
+int main(int argc, const char * argv[]) try
 {
-  const std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+  boost::program_options::options_description options_description("SCq-compiler usage");
+  options_description.add_options()
+        ("help", "Display this message")
+        ("ext-path,e", boost::program_options::value<std::string>(), "Path to directory with sc-memory extensions")
+        ("repo-path,r", boost::program_options::value<std::string>(), "Path to repository")
+        ("verbose,v", "Flag to don't save sc-memory state on exit")
+        ("clear,c", "Flag to clear sc-memory on start")
+        ("config-file,i", boost::program_options::value<std::string>(), "Path to configuration file");
+
+  boost::program_options::variables_map vm;
+  boost::program_options::store(boost::program_options::command_line_parser(argc, argv).options(options_description).run(), vm);
+  boost::program_options::notify(vm);
+
+  std::string configFile;
+  if (vm.count("config-file"))
+    configFile = vm["config-file"].as<std::string>();
+
+  std::string extPath;
+  if (vm.count("ext-path"))
+    extPath = vm["ext-path"].as<std::string>();
+
+  std::string repoPath;
+  if (vm.count("repo-path"))
+    repoPath = vm["repo-path"].as<std::string>();
+
+  bool clear = false;
+  if (vm.count("clear"))
+    clear = true;
+
+  if (vm.count("help"))
   {
-    try
-    {
-      std::ifstream file("/home/nikita/CLionProjects/scq-lang/examples/test_1.scq", std::ios_base::in);
-
-      antlr4::ANTLRInputStream input(file);
-
-      scqLexer lexer(&input);
-
-      antlr4::CommonTokenStream tokens(&lexer);
-
-      scqParser parser(&tokens);
-
-      antlr4::tree::ParseTree * tree = parser.program();
-
-      std::cout << tree->toStringTree() << std::endl;
-    }
-    catch (const std::exception & e)
-    {
-    }
+    std::cout << options_description;
+    return 0;
   }
-  const std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
-  const auto elapsed_time_us  = std::chrono::duration_cast <std::chrono::microseconds> (end - start);
-  const auto elapsed_time_sec = (elapsed_time_us.count() / 1000000.0);
+  utils::ScSignalHandler::Initialize();
 
-  return 0;
+  sc_memory_params params;
+  sc_memory_params_clear(&params);
+
+  params.clear = clear ? SC_TRUE : SC_FALSE;
+  params.config_file = configFile.c_str();
+  params.enabled_exts = nullptr;
+  params.ext_path = extPath.c_str();
+  params.repo_path = repoPath.c_str();
+
+  scqCompiler compiler {};
+
+  return compiler.compile(params) ? EXIT_SUCCESS : EXIT_FAILURE;
+}
+catch (utils::ScException & e)
+{
+  SC_LOG_ERROR(e.what())
 }

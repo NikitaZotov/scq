@@ -1,16 +1,11 @@
 
-#include "sc-memory/sc_memory.hpp"
-#include "sc-memory/sc_addr.hpp"
-#include "sc-memory/sc_keynodes.hpp"
-
-
-// Generated from /home/nikita/CLionProjects/ostis-web-platform/sc-machine/scq/scq/scq.g4 by ANTLR 4.9.2
+// Generated from /home/nikita/CLionProjects/sc-machine/scq/scq/scq.g4 by ANTLR 4.9.2
 
 #pragma once
 
 
 #include "antlr4-runtime.h"
-#include "scqParser.h"
+#include "../scqParser.h"
 
 
 
@@ -32,7 +27,7 @@ public:
 
     virtual antlrcpp::Any visitProcParams(scqParser::ProcParamsContext *context) = 0;
 
-    virtual antlrcpp::Any visitBlock(scqParser::BlockContext *context) = 0;
+    virtual antlrcpp::Any visitProcBody(scqParser::BlockContext *context) = 0;
 
     virtual antlrcpp::Any visitObjectDeclaration(scqParser::ObjectDeclarationContext *context) = 0;
 

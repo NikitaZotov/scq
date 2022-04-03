@@ -20,3 +20,5 @@ test_main := (),
 
     test_program -> set_2;
     ;
+
+test_main -> ();;
