@@ -11,12 +11,12 @@ test_program := (set -> set_1),
 
 test_main := (),
     set -> set_1, set_2;
-    terminal -> el_1, el_2, el3;
-    set_2 -> el_1, el_2, el3;
+    terminal -> el_1, el_2, el_3;
+    set_2 := el_1, el_2, el_3;
 
-    idtf -> el_1, 'terminal_1';
-    idtf -> el_2, 'terminal_2';
-    idtf -> el_3, 'terminal_3';
+    set_idtf -> el_1, 'terminal_1';
+    set_idtf -> el_2, 'terminal_2';
+    set_idtf -> el_3, 'terminal_3';
 
     test_program -> set_2;
     ;
