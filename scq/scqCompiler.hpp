@@ -6,7 +6,7 @@
 class scqCompiler
 {
 public:
-  sc_bool compile(sc_memory_params const & params);
+  sc_bool compile(sc_memory_params const & params, std::string const & filePath);
 
 private:
   ScMemoryContext * compilerCtx;

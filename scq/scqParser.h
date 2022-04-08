@@ -17,12 +17,13 @@
 class  scqParser : public antlr4::Parser {
 public:
   enum {
-    EDGE_OP = 1, ASSIGN_OP = 2, AS_OP = 3, IF_OP = 4, ELSE_OP = 5, LEFT_TRIANGLE_BRACKET = 6, 
-    RIGHT_TRIANGLE_BRACKET = 7, LEFT_SQUARE_BRACKET = 8, RIGHT_SQUARE_BRACKET = 9, 
-    LEFT_FIGURE_BRACKET = 10, RIGHT_FIGURE_BRACKET = 11, LEFT_CURL_BRACKET = 12, 
-    RIGHT_CURL_BRACKET = 13, COMMA = 14, SEMICOLON = 15, SET_OPERATION = 16, 
-    PROCEDURE_TYPE = 17, OBJECT_TYPE = 18, STRING = 19, NAME = 20, LETTER = 21, 
-    DIGIT = 22, WS = 23, SL_COMMENT = 24
+    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
+    T__7 = 8, EDGE_OP = 9, ASSIGN_OP = 10, AS_OP = 11, IF_OP = 12, ELSE_OP = 13, 
+    LEFT_TRIANGLE_BRACKET = 14, RIGHT_TRIANGLE_BRACKET = 15, LEFT_SQUARE_BRACKET = 16, 
+    RIGHT_SQUARE_BRACKET = 17, LEFT_FIGURE_BRACKET = 18, RIGHT_FIGURE_BRACKET = 19, 
+    LEFT_CURL_BRACKET = 20, RIGHT_CURL_BRACKET = 21, COMMA = 22, SEMICOLON = 23, 
+    PROCEDURE_TYPE = 24, OBJECT_TYPE = 25, STRING = 26, NAME = 27, LETTER = 28, 
+    DIGIT = 29, WS = 30, SL_COMMENT = 31
   };
 
   enum {
@@ -31,7 +32,7 @@ public:
     RuleOperation = 7, RuleCompositeOperand = 8, RuleOperationOperand = 9, 
     RuleOperand = 10, RuleNonOrientedSet = 11, RuleOrientedSet = 12, RuleTemplateCommand = 13, 
     RuleTemplateExpression = 14, RuleCommandTemplate = 15, RuleCommandTemplateResult = 16, 
-    RuleTemplateParam = 17
+    RuleTemplateParam = 17, RuleSetOperation = 18
   };
 
   explicit scqParser(antlr4::TokenStream *input);
@@ -61,12 +62,13 @@ public:
   class TemplateExpressionContext;
   class CommandTemplateContext;
   class CommandTemplateResultContext;
-  class TemplateParamContext; 
+  class TemplateParamContext;
+  class SetOperationContext; 
 
   class  ProgramContext : public antlr4::ParserRuleContext {
   public:
     using Procedures = std::unordered_set<std::string>;
-    using ProcedureDefinitions = std::map<std::string, scqParser::ProcDefinitionContext *>;
+    using ProcedureDefinitions = std::unordered_map<std::string, std::vector<std::pair<std::string, std::string>> *>;
     Procedures * procs = new Procedures();
     ProcedureDefinitions * procDefs = new ProcedureDefinitions();
     ProgramContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -114,7 +116,7 @@ public:
   public:
     ProgramContext::Procedures * procs;
     ProgramContext::ProcedureDefinitions * procDefs;
-    using ProcedureParams = std::unordered_set<std::string>;
+    using ProcedureParams = std::vector<std::pair<std::string, std::string>>;
     ProcedureParams * params = new ProcedureParams();
     antlr4::Token *nameToken = nullptr;
     ProcDefinitionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -141,6 +143,7 @@ public:
   class  ProcParamsContext : public antlr4::ParserRuleContext {
   public:
     ProcDefinitionContext::ProcedureParams * params;
+    antlr4::Token *object_typeToken = nullptr;
     antlr4::Token *nameToken = nullptr;
     ProcParamsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     ProcParamsContext(antlr4::ParserRuleContext *parent, size_t invokingState, ProcDefinitionContext::ProcedureParams * params);
@@ -169,7 +172,7 @@ public:
   public:
     ProgramContext::ProcedureDefinitions * procDefs;
     ProcDefinitionContext::ProcedureParams * params;
-    using Objects = std::unordered_set<std::string>;
+    using Objects = std::unordered_map<std::string, std::string>;
     using ObjectsDefinitions = std::vector<std::pair<std::string, scqParser::ObjectDefinitionContext *>>;
     Objects * objects = new Objects();
     ObjectsDefinitions * objDefs = new ObjectsDefinitions();
@@ -196,6 +199,7 @@ public:
   public:
     BlockContext::Objects * objects;
     ProgramContext::ProcedureDefinitions * procDefs;
+    antlr4::Token *object_typeToken = nullptr;
     antlr4::Token *nameToken = nullptr;
     ObjectDeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     ObjectDeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects, ProgramContext::ProcedureDefinitions * procDefs);
@@ -223,6 +227,8 @@ public:
     BlockContext::Objects * objects;
     BlockContext::ObjectsDefinitions * objDefs;
     ProgramContext::ProcedureDefinitions * procDefs;
+    size_t paramNum = 0;
+    ProcDefinitionContext::ProcedureParams funcParams;
     antlr4::Token *n1 = nullptr;
     antlr4::Token *n2 = nullptr;
     antlr4::Token *n3 = nullptr;
@@ -255,7 +261,9 @@ public:
     BlockContext::Objects * objects;
     BlockContext::ObjectsDefinitions * objDefs;
     ProgramContext::ProcedureDefinitions * procDefs;
-    antlr4::Token *set_operationToken = nullptr;
+    size_t paramNum = 0;
+    std::vector<std::vector<std::string>> paramTypes;
+    scqParser::SetOperationContext *setOperationContext = nullptr;
     antlr4::Token *nameToken = nullptr;
     antlr4::Token *if_opToken = nullptr;
     OperationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -265,7 +273,7 @@ public:
     std::vector<OperationOperandContext *> operationOperand();
     OperationOperandContext* operationOperand(size_t i);
     antlr4::tree::TerminalNode *SEMICOLON();
-    antlr4::tree::TerminalNode *SET_OPERATION();
+    SetOperationContext *setOperation();
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
     antlr4::tree::TerminalNode *NAME();
@@ -287,8 +295,10 @@ public:
   class  CompositeOperandContext : public antlr4::ParserRuleContext {
   public:
     BlockContext::Objects * objects;
+    size_t * paramNum;
+    ProcDefinitionContext::ProcedureParams * params;
     CompositeOperandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    CompositeOperandContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects);
+    CompositeOperandContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects, size_t * paramNum, ProcDefinitionContext::ProcedureParams * params);
     virtual size_t getRuleIndex() const override;
     std::vector<OperandContext *> operand();
     OperandContext* operand(size_t i);
@@ -302,14 +312,17 @@ public:
    
   };
 
-  CompositeOperandContext* compositeOperand(BlockContext::Objects * objects);
+  CompositeOperandContext* compositeOperand(BlockContext::Objects * objects,size_t * paramNum,ProcDefinitionContext::ProcedureParams * params);
 
   class  OperationOperandContext : public antlr4::ParserRuleContext {
   public:
     BlockContext::Objects * objects;
+    size_t * paramNum;
+    std::vector<std::vector<std::string>> * params;
     antlr4::Token *nameToken = nullptr;
+    antlr4::Token *stringToken = nullptr;
     OperationOperandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    OperationOperandContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects);
+    OperationOperandContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects, size_t * paramNum, std::vector<std::vector<std::string>> * params);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *NAME();
     antlr4::tree::TerminalNode *STRING();
@@ -323,14 +336,16 @@ public:
    
   };
 
-  OperationOperandContext* operationOperand(BlockContext::Objects * objects);
+  OperationOperandContext* operationOperand(BlockContext::Objects * objects,size_t * paramNum,std::vector<std::vector<std::string>> * params);
 
   class  OperandContext : public antlr4::ParserRuleContext {
   public:
     BlockContext::Objects * objects;
+    size_t * paramNum;
+    ProcDefinitionContext::ProcedureParams * params;
     antlr4::Token *nameToken = nullptr;
     OperandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    OperandContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects);
+    OperandContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects, size_t * paramNum, ProcDefinitionContext::ProcedureParams * params);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *NAME();
     antlr4::tree::TerminalNode *STRING();
@@ -345,13 +360,15 @@ public:
    
   };
 
-  OperandContext* operand(BlockContext::Objects * objects);
+  OperandContext* operand(BlockContext::Objects * objects,size_t * paramNum,ProcDefinitionContext::ProcedureParams * params);
 
   class  NonOrientedSetContext : public antlr4::ParserRuleContext {
   public:
     BlockContext::Objects * objects;
+    size_t * paramNum;
+    ProcDefinitionContext::ProcedureParams * params;
     NonOrientedSetContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    NonOrientedSetContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects);
+    NonOrientedSetContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects, size_t * paramNum, ProcDefinitionContext::ProcedureParams * params);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *LEFT_FIGURE_BRACKET();
     antlr4::tree::TerminalNode *RIGHT_FIGURE_BRACKET();
@@ -367,13 +384,15 @@ public:
    
   };
 
-  NonOrientedSetContext* nonOrientedSet(BlockContext::Objects * objects);
+  NonOrientedSetContext* nonOrientedSet(BlockContext::Objects * objects,size_t * paramNum,ProcDefinitionContext::ProcedureParams * params);
 
   class  OrientedSetContext : public antlr4::ParserRuleContext {
   public:
     BlockContext::Objects * objects;
+    size_t * paramNum;
+    ProcDefinitionContext::ProcedureParams * params;
     OrientedSetContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    OrientedSetContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects);
+    OrientedSetContext(antlr4::ParserRuleContext *parent, size_t invokingState, BlockContext::Objects * objects, size_t * paramNum, ProcDefinitionContext::ProcedureParams * params);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *LEFT_CURL_BRACKET();
     antlr4::tree::TerminalNode *RIGHT_CURL_BRACKET();
@@ -389,7 +408,7 @@ public:
    
   };
 
-  OrientedSetContext* orientedSet(BlockContext::Objects * objects);
+  OrientedSetContext* orientedSet(BlockContext::Objects * objects,size_t * paramNum,ProcDefinitionContext::ProcedureParams * params);
 
   class  TemplateCommandContext : public antlr4::ParserRuleContext {
   public:
@@ -469,9 +488,12 @@ public:
 
   class  TemplateParamContext : public antlr4::ParserRuleContext {
   public:
+    size_t paramNum = 0;
+    std::vector<std::vector<std::string>> paramTypes;
+    ProcDefinitionContext::ProcedureParams operationParams;
     TemplateParamContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *SET_OPERATION();
+    SetOperationContext *setOperation();
     antlr4::tree::TerminalNode *OBJECT_TYPE();
     antlr4::tree::TerminalNode *NAME();
     antlr4::tree::TerminalNode *LEFT_TRIANGLE_BRACKET();
@@ -485,6 +507,22 @@ public:
   };
 
   TemplateParamContext* templateParam();
+
+  class  SetOperationContext : public antlr4::ParserRuleContext {
+  public:
+    std::vector<std::vector<std::string>> * paramTypes;
+    SetOperationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    SetOperationContext(antlr4::ParserRuleContext *parent, size_t invokingState, std::vector<std::vector<std::string>> * paramTypes);
+    virtual size_t getRuleIndex() const override;
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  SetOperationContext* setOperation(std::vector<std::vector<std::string>> * paramTypes);
 
 
 private:

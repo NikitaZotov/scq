@@ -17,7 +17,8 @@ int main(int argc, const char * argv[]) try
         ("repo-path,r", boost::program_options::value<std::string>(), "Path to repository")
         ("verbose,v", "Flag to don't save sc-memory state on exit")
         ("clear,c", "Flag to clear sc-memory on start")
-        ("config-file,i", boost::program_options::value<std::string>(), "Path to configuration file");
+        ("config-file,i", boost::program_options::value<std::string>(), "Path to configuration file")
+        ("build,b", boost::program_options::value<std::string>(), "File to build");
 
   boost::program_options::variables_map vm;
   boost::program_options::store(boost::program_options::command_line_parser(argc, argv).options(options_description).run(), vm);
@@ -45,6 +46,10 @@ int main(int argc, const char * argv[]) try
     return 0;
   }
 
+  std::string buildFilePath;
+  if (vm.count("build"))
+    buildFilePath = vm["build"].as<std::string>();
+
   utils::ScSignalHandler::Initialize();
 
   sc_memory_params params;
@@ -58,7 +63,7 @@ int main(int argc, const char * argv[]) try
 
   scqCompiler compiler {};
 
-  return compiler.compile(params) ? EXIT_SUCCESS : EXIT_FAILURE;
+  return compiler.compile(params, buildFilePath) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 catch (utils::ScException & e)
 {

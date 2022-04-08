@@ -75,6 +75,9 @@ public:
   virtual void enterTemplateParam(scqParser::TemplateParamContext * /*ctx*/) override { }
   virtual void exitTemplateParam(scqParser::TemplateParamContext * /*ctx*/) override { }
 
+  virtual void enterSetOperation(scqParser::SetOperationContext * /*ctx*/) override { }
+  virtual void exitSetOperation(scqParser::SetOperationContext * /*ctx*/) override { }
+
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }
   virtual void exitEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

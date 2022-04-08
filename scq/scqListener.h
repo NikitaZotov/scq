@@ -73,6 +73,9 @@ public:
   virtual void enterTemplateParam(scqParser::TemplateParamContext *ctx) = 0;
   virtual void exitTemplateParam(scqParser::TemplateParamContext *ctx) = 0;
 
+  virtual void enterSetOperation(scqParser::SetOperationContext *ctx) = 0;
+  virtual void exitSetOperation(scqParser::SetOperationContext *ctx) = 0;
+
 
 };
 

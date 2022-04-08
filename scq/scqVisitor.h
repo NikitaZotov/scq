@@ -60,6 +60,8 @@ public:
 
     virtual antlrcpp::Any visitTemplateParam(scqParser::TemplateParamContext *context) = 0;
 
+    virtual antlrcpp::Any visitSetOperation(scqParser::SetOperationContext *context) = 0;
+
 
 };
 

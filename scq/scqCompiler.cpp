@@ -6,13 +6,13 @@
 #include "scqCompiler.hpp"
 
 
-sc_bool scqCompiler::compile(sc_memory_params const & params)
+sc_bool scqCompiler::compile(sc_memory_params const & params, std::string const & filePath)
 {
   try
   {
     ScMemory::Initialize(params);
 
-    std::ifstream file("/home/nikita/CLionProjects/ostis-web-platform/sc-machine/scq/examples/test_1.scq", std::ios_base::in);
+    std::ifstream file(filePath, std::ios_base::in);
     antlr4::ANTLRInputStream input(file);
     scqLexer lexer(&input);
 

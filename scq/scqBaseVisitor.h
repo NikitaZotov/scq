@@ -92,6 +92,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitSetOperation(scqParser::SetOperationContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
 
 };
 
