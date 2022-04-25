@@ -50,8 +50,6 @@ int main(int argc, const char * argv[]) try
   if (vm.count("build"))
     buildFilePath = vm["build"].as<std::string>();
 
-  utils::ScSignalHandler::Initialize();
-
   sc_memory_params params;
   sc_memory_params_clear(&params);
 

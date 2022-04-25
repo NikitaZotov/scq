@@ -1,24 +1,38 @@
 procedure -> test_program, test_main;
 
-test_program := (set -> set_1),
-    dump ->
-    	[set_1, terminal -> <alias>],
-    	[get_idtf -> <alias>, <idtf>]
-    as [<idtf>];
+test_program := (set -> set_1, set -> set_2),
+	set -> union;
+	union := unite -> (set_1, set_2);
+	set_idtf -> (union, 'union');
 
-    return -> set_1;
+    return -> (union);
     ;
 
 test_main := (),
     set -> set_1, set_2;
     terminal -> el_1, el_2, el_3;
-    set_2 := el_1, el_2, el_3;
+    set_2 := (el_1, (el_2), el_3);
 
-    set_idtf -> el_1, 'terminal_1';
-    set_idtf -> el_2, 'terminal_2';
-    set_idtf -> el_3, 'terminal_3';
+    set_idtf -> (el_1, 'terminal_1');
+    set_idtf -> (el_2, 'terminal_2');
+    set_idtf -> (set_2, 'set_2');
 
-    test_program -> set_2;
-    ;
+	dump -> (set_2);
 
-test_main -> ();;
+    set_2 := test_program -> (set_1, set_2);
+
+	if -> [el_1 -> <child>],
+		dump -> (el_1),
+	elif ->
+	  	[
+			set_2 -> <child>,
+			<child> -> <leaf>
+		],
+		dump -> (leaf);
+	endif;
+	;
+
+test_main -> ();
+set -> set_3;
+set_3 := resolve_idtf -> ('set_3');
+dump -> (set_3);;

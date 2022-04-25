@@ -4,7 +4,7 @@
 #include "sc-memory/sc_keynodes.hpp"
 
 
-// Generated from /home/nikita/CLionProjects/ostis-web-platform/sc-machine/scq/scq/scq.g4 by ANTLR 4.9.2
+// Generated from scq.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -12,21 +12,22 @@
 #include "antlr4-runtime.h"
 
 
+namespace scq {
 
 
 class  scqLexer : public antlr4::Lexer {
 public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
-    T__7 = 8, EDGE_OP = 9, ASSIGN_OP = 10, AS_OP = 11, IF_OP = 12, ELSE_OP = 13, 
-    LEFT_TRIANGLE_BRACKET = 14, RIGHT_TRIANGLE_BRACKET = 15, LEFT_SQUARE_BRACKET = 16, 
-    RIGHT_SQUARE_BRACKET = 17, LEFT_FIGURE_BRACKET = 18, RIGHT_FIGURE_BRACKET = 19, 
-    LEFT_CURL_BRACKET = 20, RIGHT_CURL_BRACKET = 21, COMMA = 22, SEMICOLON = 23, 
-    PROCEDURE_TYPE = 24, OBJECT_TYPE = 25, STRING = 26, NAME = 27, LETTER = 28, 
-    DIGIT = 29, WS = 30, SL_COMMENT = 31
+    T__7 = 8, T__8 = 9, EDGE_OP = 10, ASSIGN_OP = 11, AS_OP = 12, IF_OP = 13, 
+    ELSE_OP = 14, LEFT_TRIANGLE_BRACKET = 15, RIGHT_TRIANGLE_BRACKET = 16, 
+    LEFT_SQUARE_BRACKET = 17, RIGHT_SQUARE_BRACKET = 18, LEFT_FIGURE_BRACKET = 19, 
+    RIGHT_FIGURE_BRACKET = 20, LEFT_CURL_BRACKET = 21, RIGHT_CURL_BRACKET = 22, 
+    COMMA = 23, SEMICOLON = 24, PROCEDURE_TYPE = 25, OBJECT_TYPE = 26, STRING = 27, 
+    NAME = 28, LETTER = 29, DIGIT = 30, WS = 31, SL_COMMENT = 32
   };
 
-  explicit scqLexer(antlr4::CharStream *input);
+  scqLexer(antlr4::CharStream *input);
   ~scqLexer();
 
   virtual std::string getGrammarFileName() const override;
@@ -65,3 +66,4 @@ private:
   static Initializer _init;
 };
 
+}  // namespace scq

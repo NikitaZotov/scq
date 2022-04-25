@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="scq" targetName="antlr4_static" />
+      <config projectName="scq" targetName="scq" />
+      <config projectName="scq" targetName="SCqParser" />
+      <config projectName="scq" targetName="make_lib_output_dir" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="617f0fb4-6abe-477f-b6f9-26cf42c8da13" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scq.g4" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scq.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scq.interp" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scq.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scq.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scq.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqBaseListener.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqBaseListener.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqBaseListener.h" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqBaseListener.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqBaseVisitor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqBaseVisitor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqBaseVisitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqBaseVisitor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqLexer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqLexer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqLexer.h" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqLexer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqListener.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqListener.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqListener.h" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqListener.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqParser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqParser.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqParser.h" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqParser.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqVisitor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqVisitor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scq/scqVisitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/scq/scqVisitor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/make_all.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/antlr-4.7.1-complete.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlr4cpp-vs2013.vcxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlr4cpp-vs2013.vcxproj.filters" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlr4cpp-vs2015.vcxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlr4cpp-vs2015.vcxproj.filters" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlr4cpp-vs2017.vcxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlr4cpp-vs2017.vcxproj.filters" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlrcpp-ios/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlrcpp-ios/antlrcpp_ios.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlrcpp.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlrcpp.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlrcpp.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlrcpp.xcodeproj/xcshareddata/xcschemes/antlr4.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlrcpp.xcodeproj/xcshareddata/xcschemes/antlr4_ios.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/antlrcpp.xcodeproj/xcshareddata/xcschemes/antlr4_static.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ANTLRErrorListener.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ANTLRErrorListener.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ANTLRErrorStrategy.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ANTLRErrorStrategy.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ANTLRFileStream.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ANTLRFileStream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ANTLRInputStream.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ANTLRInputStream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/BailErrorStrategy.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/BailErrorStrategy.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/BaseErrorListener.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/BaseErrorListener.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/BufferedTokenStream.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/BufferedTokenStream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/CharStream.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/CharStream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/CommonToken.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/CommonToken.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/CommonTokenFactory.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/CommonTokenFactory.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/CommonTokenStream.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/CommonTokenStream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ConsoleErrorListener.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ConsoleErrorListener.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/DefaultErrorStrategy.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/DefaultErrorStrategy.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/DiagnosticErrorListener.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/DiagnosticErrorListener.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Exceptions.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Exceptions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/FailedPredicateException.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/FailedPredicateException.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/InputMismatchException.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/InputMismatchException.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/IntStream.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/IntStream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/InterpreterRuleContext.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/InterpreterRuleContext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Lexer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Lexer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/LexerInterpreter.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/LexerInterpreter.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/LexerNoViableAltException.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/LexerNoViableAltException.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ListTokenSource.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ListTokenSource.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/NoViableAltException.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/NoViableAltException.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Parser.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Parser.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ParserInterpreter.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ParserInterpreter.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ParserRuleContext.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ParserRuleContext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ProxyErrorListener.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/ProxyErrorListener.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/RecognitionException.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/RecognitionException.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Recognizer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Recognizer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/RuleContext.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/RuleContext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/RuleContextWithAltNum.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/RuleContextWithAltNum.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/RuntimeMetaData.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/RuntimeMetaData.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Token.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Token.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/TokenFactory.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/TokenSource.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/TokenSource.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/TokenStream.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/TokenStream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/TokenStreamRewriter.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/TokenStreamRewriter.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/UnbufferedCharStream.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/UnbufferedCharStream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/UnbufferedTokenStream.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/UnbufferedTokenStream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Vocabulary.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/Vocabulary.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/WritableToken.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/WritableToken.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/antlr4-common.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/antlr4-runtime.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATN.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATN.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNConfig.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNConfig.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNConfigSet.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNConfigSet.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNDeserializationOptions.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNDeserializationOptions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNDeserializer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNDeserializer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNSerializer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNSerializer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNSimulator.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNSimulator.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ATNType.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/AbstractPredicateTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/AbstractPredicateTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ActionTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ActionTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/AmbiguityInfo.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/AmbiguityInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ArrayPredictionContext.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ArrayPredictionContext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/AtomTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/AtomTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/BasicBlockStartState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/BasicBlockStartState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/BasicState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/BasicState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/BlockEndState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/BlockEndState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/BlockStartState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/BlockStartState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ContextSensitivityInfo.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ContextSensitivityInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/DecisionEventInfo.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/DecisionEventInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/DecisionInfo.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/DecisionInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/DecisionState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/DecisionState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/EmptyPredictionContext.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/EmptyPredictionContext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/EpsilonTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/EpsilonTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ErrorInfo.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ErrorInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LL1Analyzer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LL1Analyzer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerATNConfig.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerATNConfig.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerATNSimulator.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerATNSimulator.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerActionExecutor.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerActionExecutor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerActionType.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerChannelAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerChannelAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerCustomAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerCustomAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerIndexedCustomAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerIndexedCustomAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerModeAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerModeAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerMoreAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerMoreAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerPopModeAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerPopModeAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerPushModeAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerPushModeAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerSkipAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerSkipAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerTypeAction.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LexerTypeAction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LookaheadEventInfo.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LookaheadEventInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LoopEndState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/LoopEndState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/NotSetTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/NotSetTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/OrderedATNConfigSet.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/OrderedATNConfigSet.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ParseInfo.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ParseInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ParserATNSimulator.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ParserATNSimulator.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PlusBlockStartState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PlusBlockStartState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PlusLoopbackState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PlusLoopbackState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PrecedencePredicateTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PrecedencePredicateTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PredicateEvalInfo.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PredicateEvalInfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PredicateTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PredicateTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PredictionContext.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PredictionContext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PredictionMode.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/PredictionMode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ProfilingATNSimulator.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/ProfilingATNSimulator.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/RangeTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/RangeTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/RuleStartState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/RuleStartState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/RuleStopState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/RuleStopState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/RuleTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/RuleTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/SemanticContext.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/SemanticContext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/SetTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/SetTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/SingletonPredictionContext.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/SingletonPredictionContext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/StarBlockStartState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/StarBlockStartState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/StarLoopEntryState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/StarLoopEntryState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/StarLoopbackState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/StarLoopbackState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/TokensStartState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/TokensStartState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/Transition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/Transition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/WildcardTransition.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/atn/WildcardTransition.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/dfa/DFA.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/dfa/DFA.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/dfa/DFASerializer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/dfa/DFASerializer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/dfa/DFAState.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/dfa/DFAState.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/dfa/LexerDFASerializer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/dfa/LexerDFASerializer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/InterpreterDataReader.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/InterpreterDataReader.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/Interval.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/Interval.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/IntervalSet.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/IntervalSet.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/MurmurHash.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/MurmurHash.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/Predicate.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/misc/Predicate.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/Any.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/Any.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/Arrays.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/Arrays.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/BitSet.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/CPPUtils.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/CPPUtils.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/Declarations.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/StringUtils.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/StringUtils.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/guid.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/support/guid.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/AbstractParseTreeVisitor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ErrorNode.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ErrorNode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ErrorNodeImpl.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ErrorNodeImpl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/IterativeParseTreeWalker.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/IterativeParseTreeWalker.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ParseTree.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ParseTree.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ParseTreeListener.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ParseTreeListener.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ParseTreeProperty.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ParseTreeVisitor.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ParseTreeVisitor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ParseTreeWalker.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/ParseTreeWalker.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/TerminalNode.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/TerminalNode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/TerminalNodeImpl.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/TerminalNodeImpl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/Trees.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/Trees.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/Chunk.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/Chunk.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/ParseTreeMatch.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/ParseTreeMatch.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/ParseTreePattern.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/ParseTreePattern.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/ParseTreePatternMatcher.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/ParseTreePatternMatcher.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/RuleTagToken.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/RuleTagToken.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/TagChunk.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/TagChunk.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/TextChunk.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/TextChunk.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/TokenTagToken.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/pattern/TokenTagToken.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPath.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPath.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathElement.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathElement.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathLexer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathLexer.g4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathLexer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathLexerErrorListener.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathLexerErrorListener.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathRuleAnywhereElement.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathRuleAnywhereElement.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathRuleElement.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathRuleElement.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathTokenAnywhereElement.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathTokenAnywhereElement.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathTokenElement.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathTokenElement.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathWildcardAnywhereElement.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathWildcardAnywhereElement.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathWildcardElement.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thirdparty/antlr/runtime/src/tree/xpath/XPathWildcardElement.h" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2021" />
+    <option name="minorVersion" value="3.3" />
+  </component>
+  <component name="ProjectId" id="25eHCrcDAjB2fIpAGiXoieVkVll" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager" selected="CMake Application.scq">
+    <configuration default="true" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+      <texify-bibtex>
+        <compiler />
+        <compiler-path />
+        <compiler-arguments />
+        <envs />
+        <main-file>$USER_HOME$</main-file>
+        <aux-dir>$USER_HOME$</aux-dir>
+      </texify-bibtex>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SCqParser" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="scq" TARGET_NAME="SCqParser" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="antlr4_static" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="scq" TARGET_NAME="antlr4_static" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="make_lib_output_dir" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="scq" TARGET_NAME="make_lib_output_dir" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="scq" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="scq" TARGET_NAME="scq" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="scq" RUN_TARGET_NAME="scq">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="EXTERNAL_TOOL_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+      <texify-external>
+        <program>PYTHONTEX</program>
+        <main-file />
+        <work-dir />
+      </texify-external>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+      <texify>
+        <compiler>PDFLATEX</compiler>
+        <compiler-path />
+        <sumatra-path />
+        <pdf-viewer>EVINCE</pdf-viewer>
+        <viewer-command />
+        <compiler-arguments />
+        <envs />
+        <main-file />
+        <output-path>{projectDir}/out</output-path>
+        <auxil-path>{projectDir}/auxil</auxil-path>
+        <compile-twice>false</compile-twice>
+        <output-format>PDF</output-format>
+        <latex-distribution>TEXLIVE</latex-distribution>
+        <has-been-run>false</has-been-run>
+        <bib-run-config>[]</bib-run-config>
+        <makeindex-run-config>[]</makeindex-run-config>
+      </texify>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="MAKEINDEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+      <texify-makeindex>
+        <program>MAKEINDEX</program>
+        <main-file />
+        <work-dir />
+      </texify-makeindex>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.antlr4_static" />
+      <item itemvalue="CMake Application.make_lib_output_dir" />
+      <item itemvalue="CMake Application.scq" />
+      <item itemvalue="CMake Application.SCqParser" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="617f0fb4-6abe-477f-b6f9-26cf42c8da13" name="Changes" comment="" />
+      <created>1645880509662</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1645880509662</updated>
+      <workItem from="1645880510892" duration="141000" />
+      <workItem from="1647761971462" duration="270000" />
+      <workItem from="1647762338724" duration="1222000" />
+      <workItem from="1647763610093" duration="251000" />
+      <workItem from="1647763943779" duration="1874000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
