@@ -564,13 +564,13 @@ scqParser::BlockContext* scqParser::block(ProgramContext::ProcedureDefinitions *
     }
    _ctx->stop = _input->LT(-1);
 
-        for (auto const & item : *_localctx->objDefs) {
-          std::cout << "<" << item.at(0)
-          		<< ">  <" << item.at(1)
-          		<< ">  <" << item.at(2)
-          		<< ">  <" << item.at(3)
-          		<< ">" << std::endl;
-    	}
+    //    for (auto const & item : *_localctx->objDefs) {
+    //      std::cout << "<" << item.at(0)
+    //      		<< ">  <" << item.at(1)
+    //      		<< ">  <" << item.at(2)
+    //      		<< ">  <" << item.at(3)
+    //      		<< ">" << std::endl;
+    //	}
         
   }
   catch (RecognitionException &e) {

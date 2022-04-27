@@ -1,13 +1,13 @@
 procedure -> test_program, test_main;
 
 test_program := (set -> set_1),
-    return -> set_1;
+    return -> (set_1);
     ;
 
 test_main := (),
     set -> set_1, set_2;
 
-    test_program -> set_2, set_3;
+    test_program -> (set_2, set_3); 	// call function with two arguments if one is required
     ;
 
 test_main -> ();;

@@ -1,18 +1,18 @@
 procedure -> test_program, test_main;
 
 test_program := (set -> set_1),
-    dump -> set_1;
+    dump -> (set_1);
 
-    return -> set_1;
+    return -> (set_1);
     ;
 
 test_main := (),
     set -> set_1;
     terminal -> el_1;
 
-    set_idtf -> el_1, 'terminal_1';
+    set_idtf -> (el_1, 'terminal_1');
 
-    test_program -> set_2;
+    test_program -> (set_2);
     ;
 
 test_main -> ();

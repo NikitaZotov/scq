@@ -104,14 +104,21 @@ ScAddr scqExecutor::createObject(std::string const & objName, FunctionContext & 
   }
 
   auto const typeIt = types->find(objName);
+  ScAddr node;
+  if (typeIt != types->end())
+  {
+    node = context->CreateNode(ScType::NodeConst);
+    context->CreateEdge(
+          ScType::EdgeAccessConstPosPerm,
+          setTypes.find(typeIt->second)->second,
+          node);
 
-  ScAddr node = context->CreateNode(ScType::NodeConst);
-  context->CreateEdge(
-        ScType::EdgeAccessConstPosPerm,
-        setTypes.find(typeIt->second)->second,
-        node);
-
-  functionCtx.insert({ objName, node });
+    functionCtx.insert({ objName, node });
+  }
+  else
+  {
+    node = setTypes.find(objName)->second;
+  }
 
   return node;
 }

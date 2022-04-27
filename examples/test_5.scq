@@ -4,9 +4,9 @@ test_procedure := (),
     tuple -> set_1;
     terminal -> el_1;
 
-    set_idtf -> el_1, 'terminal_1';
+    set_idtf -> (el_1, 'terminal_1');
 
-    test_program -> set_1;
+    test_program -> (set_1);
     ;
 
 test_procedure -> ();;

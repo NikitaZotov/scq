@@ -5,6 +5,7 @@ options
   language = Cpp;
 }
 
+// use sc-machine packages
 @header
 {
 #include "sc-memory/sc_memory.hpp"
@@ -16,13 +17,13 @@ program
 	locals
 	[
 	using Procedures = std::unordered_set<std::string>,
-	Procedures * procs = new Procedures(),
+	Procedures * procs = new Procedures(),								// declared procedures names
 
 	using ObjectsDefinitions = std::vector<std::array<std::string, 4>>,
-    ObjectsDefinitions * objDefs = new ObjectsDefinitions(),
+    ObjectsDefinitions * objDefs = new ObjectsDefinitions(),			// table of fours to process operations
 
 	using Objects = std::unordered_map<std::string, std::string>,
-    Objects * objects = new Objects(),
+    Objects * objects = new Objects(),									// global and local objects in program
 
 	using ProcedureDefinitions
 		= std::unordered_map<
@@ -32,16 +33,19 @@ program
 				std::pair<ProgramContext::ObjectsDefinitions *, ProgramContext::Objects *>
 			>
 		>,
-	ProcedureDefinitions * procDefs = new ProcedureDefinitions(),
+	ProcedureDefinitions * procDefs = new ProcedureDefinitions(),		// defined procedures with their params
+																		// and local objects
 	]
 	: procDeclaration[$procs]* procDefinition[$procs, $procDefs]* block[$procDefs, nullptr, $objDefs, $objects]
 	;
+	// catch exceptions and cast them to ScException as root exception, use log to describe error
 	catch[utils::ScException const & e] {SC_LOG_ERROR("Parse error occurred: " + std::string(e.Message()));}
 
 procDeclaration
 	[ProgramContext::Procedures * procs]
 	: PROCEDURE_TYPE EDGE_OP NAME
 	{
+	// check procedure redeclaration
 	if ($procs->find($NAME.text) != $procs->end()) {
 	  SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure \"" + $NAME.text + "\" is declared.");
 	}
@@ -52,6 +56,7 @@ procDeclaration
 	}
 	(COMMA NAME
 	{
+	// check procedure redeclaration
     if ($procs->find($NAME.text) != $procs->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure \"" + $NAME.text + "\" is declared.");
     }
@@ -75,6 +80,7 @@ procDefinition
     ]
  	: (PROCEDURE_TYPE EDGE_OP)? NAME
  	{
+ 	// check procedure undeclaration before its definition
     if ($procs->find($NAME.text) == $procs->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The procedure \"" + $NAME.text + "\" isn't declared.");
     }
@@ -90,6 +96,7 @@ procDefinition
 procParams[ProcDefinitionContext::ProcedureParams * params]
 	: LEFT_CURL_BRACKET (OBJECT_TYPE EDGE_OP NAME
 	{
+	// check procedure params in it call with required ones
 	if (std::find_if($params->begin(), $params->end(), [&](auto & item) -> bool { item.first == $NAME.text; })
 	  != $params->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The param \"" + $NAME.text + "\" is repeated.");
@@ -101,6 +108,7 @@ procParams[ProcDefinitionContext::ProcedureParams * params]
 	}
 	)* (COMMA (OBJECT_TYPE EDGE_OP)* NAME
 	{
+	// check procedure params in it call with required ones
     if (std::find_if($params->begin(), $params->end(), [&](auto & item) -> bool { item.first == $NAME.text; })
       != $params->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The param \"" + $NAME.text + "\" is repeated.");
@@ -122,21 +130,12 @@ block
 	]
     @init
     {
+    // add procedure params to local objects
     if (params != nullptr) {
       std::for_each(params->begin(), params->end(), [&](const auto & item) {
         $objects->insert(item);
       });
     }
-    }
-    @after
-    {
-    for (auto const & item : *$objDefs) {
-      std::cout << "<" << item.at(0)
-      		<< ">  <" << item.at(1)
-      		<< ">  <" << item.at(2)
-      		<< ">  <" << item.at(3)
-      		<< ">" << std::endl;
-	}
     }
     : (objectDeclaration[$objects, $procDefs]
     | objectDefinition[$objects, $objDefs, $procDefs]
@@ -147,12 +146,14 @@ objectDeclaration
 	[ProgramContext::Objects * objects, ProgramContext::ProcedureDefinitions * procDefs]
 	: OBJECT_TYPE (COMMA (OBJECT_TYPE | (NAME
 	{
+	// check object undeclaration
     if ($objects->find($NAME.text) == $objects->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object \"" + $NAME.text + "\" isn't declared.");
     }
     }
 	)))* EDGE_OP NAME
 	{
+	// check object redeclaration in edge operation
     if ($objects->find($NAME.text) != $objects->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object \"" + $NAME.text + "\" is declared.");
     }
@@ -163,6 +164,7 @@ objectDeclaration
     }
     (COMMA NAME
     {
+    // check object redeclaration in edge operation
     if ($objects->find($NAME.text) != $objects->end()) {
       SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object \"" + $NAME.text + "\" is declared.");
     }
@@ -189,6 +191,7 @@ objectDefinition
 	]
 	: (((OBJECT_TYPE | ((n0=NAME ASSIGN_OP)? n1=NAME
 	{
+	// check procedure declaration before it calling
 	auto const & it = $procDefs->find($n1.text);
 	if (it != $procDefs->end()) {
 	  $funcParams = (*procDefs->find($n1.text)).second.first;
@@ -199,6 +202,7 @@ objectDefinition
 	)
 	| (n1=NAME
 	{
+	// check procedure undeclaration
 	auto const & it = $procDefs->find($n1.text);
 	if ($objects->find($n1.text) == $objects->end()) {
 	  SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object \"" + $n1.text + "\" isn't declared.");
@@ -206,6 +210,7 @@ objectDefinition
 	}
 	)) EDGE_OP compositeOperand[$objects, $objDefs, &$paramNum, $funcParams, $depth])
 	{
+	// check procedure params size
 	if ($paramNum > $funcParams->size()) {
 	  SC_THROW_EXCEPTION(
 	    utils::ExceptionInvalidParams,
@@ -214,6 +219,7 @@ objectDefinition
 
 	if ($n0 != nullptr)
 	{
+	  // check left object undeclaration in assignment
 	  if ($objects->find($n0.text) == $objects->end()) {
 		SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object \"" + $n0.text + "\" isn't declared.");
 	  }
@@ -227,6 +233,7 @@ objectDefinition
 	| (((n3=NAME ASSIGN_OP
 	{
 	if ($n3 != nullptr) {
+	  // check right object undeclaration in assignment
 	  if ($objects->find($n3.text) == $objects->end()) {
 		SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object \"" + $n3.text + "\" isn't declared.");
 	  }
@@ -240,6 +247,7 @@ objectDefinition
 	| ((n3=NAME ASSIGN_OP)? o1=operation[$objects, $objDefs, $procDefs]
 	{
 	if ($n3 != nullptr) {
+	  // check left object undeclaration in assignment of result operation call
 	  if ($objects->find($n3.text) == $objects->end()) {
 	    SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object \"" + $n3.text + "\" isn't declared.");
 	  }
@@ -281,6 +289,7 @@ operation
  	(COMMA operationOperand[$objects, $objDefs, &$paramNum, &$paramTypes, $depth + 1])* RIGHT_CURL_BRACKET)
  	| templateCommand[$objects, $objDefs, $procDefs])
  	{
+ 	// check procedure params size with required
     if ($paramNum > $paramTypes.size()) {
       SC_THROW_EXCEPTION(
         utils::ExceptionInvalidParams,
@@ -367,12 +376,14 @@ operationOperand
 
 	if (paramNum != nullptr && params != nullptr) {
  	  if (*paramNum < params->size()) {
+ 	  	// check param index in big depth level
 	    if ($objects->find($NAME.text) == $objects->end()) {
 	      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object \"" + $NAME.text + "\" isn't declared.");
 	    }
 
 	    std::vector<std::string> & expectedTypes = $params->at(*$paramNum);
 	    std::string & type = (*$objects->find($NAME.text)).second;
+	    // check param type
 	    if (std::find(expectedTypes.begin(), expectedTypes.end(), type) == expectedTypes.end()) {
 	      SC_THROW_EXCEPTION(
 	        utils::ExceptionInvalidParams,
@@ -387,8 +398,10 @@ operationOperand
 	| (STRING
 	{
 	if (paramNum != nullptr && params != nullptr) {
+	  // check arguments size
       if (*paramNum < params->size()) {
     	std::vector<std::string> & expectedTypes = $params->at(*$paramNum);
+    	// check strings literals in arguments passing
     	if (std::find(expectedTypes.begin(), expectedTypes.end(), "string") == expectedTypes.end()) {
     	  SC_THROW_EXCEPTION(
     	    utils::ExceptionInvalidParams,
@@ -414,6 +427,7 @@ operand
  	{
  	if (paramNum != nullptr && params != nullptr) {
  	  if (*paramNum < params->size()) {
+ 	  	// check procedure operand undeclaration
 	    if ($objects->find($NAME.text) == $objects->end()) {
 	      SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object " + $NAME.text + " isn't declared.");
 	    }
@@ -448,6 +462,7 @@ nonOrientedSet
  	: LEFT_FIGURE_BRACKET
  	{
  	if (paramNum != nullptr && params != nullptr) {
+ 	  // check argument type with big depth level
  	  if (*paramNum < params->size()) {
  	    std::string & type = $params->at(*$paramNum).second;
  	    if ($params->at(*$paramNum).second != "set") {
@@ -478,6 +493,7 @@ orientedSet
 	: LEFT_CURL_BRACKET
 	{
 	if (paramNum != nullptr && params != nullptr) {
+	  // check object type in arguments passing
 	  if (*paramNum < params->size()) {
         std::string & type = $params->at(*$paramNum).second;
         if ($params->at(*$paramNum).second != "tuple") {
@@ -492,6 +508,7 @@ orientedSet
     {
 	  $objDefs->push_back({ "param", "()", std::to_string(depth), "" });
 	}
+	// oriented set elements
 	operand[$objects, $objDefs, $paramNum, $params, $depth + 1]?
     (COMMA operand[$objects, $objDefs, $paramNum, $params, $depth + 1])*
 	RIGHT_CURL_BRACKET
@@ -503,6 +520,7 @@ templateCommand
 	ProgramContext::ObjectsDefinitions * objDefs,
 	ProgramContext::ProcedureDefinitions * procDefs,
 	]
+	// command to search isomorphic structures
 	: templateExpression[$objects, $objDefs, $procDefs] (commandTemplateResult[$objects, $objDefs, $procDefs])?
 	;
 
@@ -513,6 +531,7 @@ templateExpression
 	ProgramContext::ProcedureDefinitions * procDefs,
 	]
 	: LEFT_SQUARE_BRACKET
+	// command template items
 	commandTemplate[$objects, $objDefs, $procDefs] (COMMA commandTemplate[$objects, $objDefs, $procDefs])*
 	RIGHT_SQUARE_BRACKET
 	;
@@ -523,6 +542,7 @@ commandTemplate
 	ProgramContext::ObjectsDefinitions * objDefs,
 	ProgramContext::ProcedureDefinitions * procDefs,
 	]
+	// command template items source and target params
 	: source=templateParam[$objects, $objDefs, $procDefs] EDGE_OP target=templateParam[$objects, $objDefs, $procDefs]
 	{
 	$objDefs->push_back({ "param", $source.param, "0", "" });
@@ -561,6 +581,7 @@ templateParam
 	if ($n1 != nullptr)
 	{
 	  auto const & it = $procDefs->find($n1.text);
+	  // check template param undeclaration
 	  if ($objects->find($n1.text) == $objects->end()) {
 	    SC_THROW_EXCEPTION(utils::ExceptionInvalidParams, "The object \"" + $n1.text + "\" isn't declared.");
 	  }
@@ -575,6 +596,7 @@ templateParam
 
 setOperation[std::vector<std::vector<std::string>> * paramTypes]
 	: 'intersect'
+	// collect required operations params
 	{
 	paramTypes->push_back({ "set" });
 	paramTypes->push_back({ "set" });
